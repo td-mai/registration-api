@@ -1,0 +1,81 @@
+version: '2.0'
+services:
+   smtp:
+      image: namshi/smtp:latest
+      hostname: smtp
+      restart: always
+      volumes:
+        - mysql:/var/lib/mysql
+        - logging:/var/www/html/smtp/logging/
+        - keys:/var/www/.ssh
+        - certificates:/var/www/html/ssl_certificates/
+        - supervisor_cfg:/etc/supervisor/conf.d/
+      ports:
+         - "443:443"
+         - "2200:2200"
+      environment:
+         # Moved CLEANDB to 2_1.env
+         - CAPTCHA_ENABLE=false # set to false to disable captcha
+      env_file:
+         - env.dev
+      networks:
+         backend:
+              ipv4_address: 172.18.0.7
+   rest_server:
+      image: dheerajrav/rest_server:latest
+      hostname: rest_server
+      restart: always
+      ports:
+         - "8443:8443"
+      env_file:
+         - env.dev
+      networks:
+         backend:
+              ipv4_address: 172.18.0.8
+   mysql:
+        image: mysql:latest
+        hostname: mysql
+        ports: 
+            - 3306:3306
+        restart: always
+        volumes:
+            - dbdata:/var/lib/mysql
+            - ./db_init:/docker-entrypoint-initdb.d
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=user
+            - MYSQL_PASSWORD=user
+            - MYSQL_DATABASE=KSmanager
+        networks:
+           backend:
+              ipv4_address: 172.18.0.2
+
+   mqtt:
+        image: eclipse-mosquitto:latest
+        hostname: mqtt
+        ports:
+            - 1883:1883
+        restart: always
+        networks:
+           backend:
+              ipv4_address: 172.18.0.3
+
+  
+volumes:
+  mysql:
+    driver: local
+  logging:
+    driver: local
+  keys:
+    driver: local
+  certificates:
+    driver: local
+  supervisor_cfg:
+    driver: local
+  dbdata:
+    driver: local
+networks:
+  backend:
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24

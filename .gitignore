@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+.tox/
+build/
+node_modules/
+*.egg-info
+*.pyc

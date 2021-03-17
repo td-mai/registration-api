@@ -1,0 +1,8 @@
+<h1>SMTP Server</h1>
+<h2>Sent emails :</h2>
+
+<% mails.forEach(function(mail){ %>
+    <p><strong> <%= mail.date %></strong> 
+        From <strong><%= mail.sender %></strong> To <strong> <%= mail.receiver %></strong></p>
+    <p><%- mail.content %></p>
+    <% }) %>

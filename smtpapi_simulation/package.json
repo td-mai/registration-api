@@ -1,0 +1,16 @@
+{
+  "name": "smtpapi_simulation",
+  "version": "1.0.0",
+  "description": "simulate an smtp api service, offer a http api endpoint to send an email. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thuy Dung MAI",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "multer": "^1.4.2"
+  }
+}

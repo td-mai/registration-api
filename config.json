@@ -1,0 +1,21 @@
+{
+"DB_CONFIG": {
+    "user": "root",
+    "password": "mySqlPass**123",
+    "database": "registrationdb",
+    "host": "172.18.0.2",
+    "port": 3306
+    },
+"REDIS_CONFIG": {
+    "host": "172.18.0.3",
+    "port": 6379
+    },
+
+"SMTP_API_CONFIG" : {
+    "api_url": "http://172.18.0.4:5001/api",
+    "api_sendemail_url": "http://172.18.0.4:5001/api/sendemail",
+    "user": "dailymo",
+    "password": "pass4SmtpApi"
+    },
+"ACTIVATION_EMAIL_ADDR": "activation@dailymotion.com"
+}

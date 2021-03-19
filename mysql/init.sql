@@ -3,6 +3,11 @@
 
 CREATE DATABASE IF NOT EXISTS registrationdb ;
 
+CREATE USER 'dailymotion'@'%' identified by 'mySqlPass**123';
+GRANT ALL PRIVILEGES on *.* to 'dailymotion'@'%';
+
+-- ALTER USER 'dailymotion'@'%' IDENTIFIED WITH mysql_native_password BY 'mySqlPass**123'
+
 USE registrationdb;
 --
 -- Table structure for table `client`

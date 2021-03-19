@@ -1,7 +1,7 @@
 version: '3.0'
 services:
   registrationdb:
-    image: mysql:latest
+    image: mariadb:latest
     ports:
       - "3306:3306"
     volumes:
@@ -9,7 +9,7 @@ services:
     environment:
       - MYSQL_ROOT_USER=root
       - MYSQL_ROOT_PASSWORD=mySqlPass**123
-
+    container_name: registrationdb
     networks:
       backend:
         ipv4_address: 172.18.0.2
@@ -18,27 +18,36 @@ services:
     image: redis:latest
     ports:
         - "6379:6379"
+
+    container_name: redisdb
     networks:
       backend:
         ipv4_address: 172.18.0.3
 
   smtpapi:
-    image: tdmai/smtpapi
+    image: tdmai/smtpapi:latest
     ports:
         - "5001:5001"
+
+    container_name: smtpapi
+
     networks:
       backend:
         ipv4_address: 172.18.0.4
 
   registrationapi:
-    image: registrationapi
+    image: tdmai/registrationapi:latest
     ports:
       - "5000:5000"
+
+    container_name: registrationapi
+
     environment:
       - FLASK_ENV=production
       - SECRET_KEY=8wt#&^6u+xZA(LOfBwJL
-      - CONFIG_FILE=./config.json
-
+      - CONFIG_FILE=/usr/src/config/config.json
+    volumes:
+      - ./config:/usr/src/config
     networks:
       backend:
         ipv4_address: 172.18.0.5

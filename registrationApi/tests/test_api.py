@@ -67,7 +67,7 @@ class TestApi(unittest.TestCase):
     def test_get_register(self):
         "Methode not allowed"
         r = self.app.get('http://0.0.0.0:5000/api/register')
-        self.assertEqual(r.status_code, 405)
+        self.assertEqual(r.status_code, 404)
 
 
     def test_01_post_register(self):

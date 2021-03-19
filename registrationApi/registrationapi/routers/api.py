@@ -18,9 +18,6 @@ def register():
     if not email:
         raise ClientError("The email is required.", status_code=422)
     
-    if get_user_by_email(email):
-        raise ClientError("This email is already used.", 409)
-
     password = request_data.get("password")
     if not password:
         raise ClientError("The password is required", status_code=422)
@@ -33,7 +30,9 @@ def register():
                 " and contain at least one uppercase, one lowercase character,"\
                     " one number and one special character.", status_code=422)
 
-
+    if get_user_by_email(email):
+        raise ClientError("This email is already used.", 409)
+    
     #Generate activation code
     activation_code = randint(1000, 9999)
     try:

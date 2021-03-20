@@ -10,7 +10,9 @@ View config/config.json
 $ docker-compose up -d
 
 To view results, 4 docker containers are running:
+
 $ docker images
+
 $ docker ps
 
 ## Tests
